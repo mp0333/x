@@ -250,7 +250,7 @@
             
             /* KEY: Shrink container to fit content exactly, but allow scroll if too small */
             width: fit-content;
-            min-width: 500px;
+            min-width: 700px; /* Increased width for better visibility */
             max-width: 100%;
             background: white;
         }
@@ -264,13 +264,13 @@
 
         th {
             background: #f8fafc;
-            /* Tight padding for headers */
-            padding: 10px 12px; 
+            /* Comfortable padding for headers */
+            padding: 14px 20px; 
             text-align: left;
             color: var(--text-muted);
             font-weight: 700;
             text-transform: uppercase;
-            font-size: 0.75rem; 
+            font-size: 0.85rem; /* Larger header text */
             letter-spacing: 0.5px;
             position: sticky;
             top: 0;
@@ -281,19 +281,19 @@
         }
 
         td {
-            /* Tight padding for cells */
-            padding: 8px 12px;
+            /* Comfortable padding for cells */
+            padding: 12px 20px;
             border-bottom: 1px solid var(--border-color);
             vertical-align: middle;
             color: var(--text-main);
-            font-size: 0.9rem;
+            font-size: 1rem; /* Larger body text */
             /* Keep data on one line to avoid gaps */
             white-space: nowrap; 
         }
 
         .font-mono {
             font-family: 'JetBrains Mono', 'Courier New', monospace;
-            font-size: 0.9rem; 
+            font-size: 0.95rem; /* Larger monospace font */
         }
 
         tbody tr {
@@ -307,11 +307,11 @@
         /* Points Styling */
         .points-cell {
             font-family: 'Inter', sans-serif;
-            font-size: 1rem;
+            font-size: 1.05rem; /* Slightly larger */
             font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 6px; 
+            gap: 8px; 
         }
 
         .points-high { 
@@ -320,7 +320,7 @@
 
         .robux-icon {
             color: var(--robux-blue);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             filter: drop-shadow(0 0 2px rgba(14, 165, 233, 0.4));
             animation: pulse 2s infinite;
         }
@@ -334,12 +334,12 @@
         .action-btn {
             background: transparent;
             border: 1px solid transparent;
-            padding: 4px 6px; 
+            padding: 6px 10px; /* Larger hit area */
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 1rem;
-            margin: 0 1px; 
+            font-size: 1.1rem; /* Larger icons */
+            margin: 0 2px; 
         }
 
         .copy-icon { color: var(--text-muted); }
