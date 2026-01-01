@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Account Sorter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --header-bg: #f1f4f8;
+            --text-color: #495057;
+            --primary: #3498db;
+            --points-color: #e67e22; /* Orange for points */
+            --border-color: #e9ecef;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        /* Input Section */
+        .input-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: monospace;
+            box-sizing: border-box; 
+        }
+
+        .controls {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            flex-grow: 1;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn-sort {
+            background-color: var(--primary);
+            color: white;
+        }
+        .btn-sort:hover { background-color: #2980b9; }
+
+        .btn-tg {
+            background-color: #0088cc; /* Telegram Color */
+            color: white;
+        }
+        .btn-tg:hover { background-color: #0077b5; }
+
+        /* Data Table Styles - Matching Screenshot */
+        .data-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 3fr 1fr 0.5fr;
+            background-color: var(--header-bg);
+            padding: 15px 20px;
+            font-weight: 700;
+            color: #6c757d;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .row-item {
+            display: grid;
+            grid-template-columns: 3fr 1fr 0.5fr;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            align-items: center;
+            transition: background 0.1s;
+        }
+
+        .row-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .row-item:last-child {
+            border-bottom: none;
+        }
+
+        .col-creds {
+            font-family: monospace;
+            font-size: 1rem;
+            color: #333;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .col-points {
+            font-weight: 700;
+            color: var(--points-color);
+            font-size: 1.1rem;
+        }
+
+        .col-action {
+            text-align: right;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: #6c757d;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .icon-btn:hover {
+            color: var(--primary);
+        }
+
+        /* Status Toast */
+        #status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #333;
+            color: #fff;
+            border-radius: 4px;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="input-card">
+            <h3><i class="fas fa-bolt"></i> Advanced Sorter</h3>
+            <textarea id="inputData" placeholder="Paste data here...&#10;tanaphon.ph@hotmail.com:Samsung2018 | Points = 3 | MADE BY = @BosShooTeR"></textarea>
+            
+            <div class="controls">
+                <button class="btn-sort" onclick="processData()">
+                    <i class="fas fa-filter"></i> Sort Data
+                </button>
+                
+                <div style="border-left: 1px solid #ccc; margin: 0 10px;"></div>
+
+                <input type="text" id="chatId" placeholder="Enter Telegram Chat ID (e.g. 123456789)">
+                <button class="btn-tg" id="btnSendTg" onclick="sendToTelegram()" disabled>
+                    <i class="fab fa-telegram-plane"></i> Send to Bot
+                </button>
+            </div>
+            <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">
+                To get Chat ID, forward a message to @userinfobot in Telegram.
+            </p>
+        </div>
+
+        <div class="data-card" id="resultsArea" style="display:none;">
+            <div class="table-header">
+                <div>Account Credentials</div>
+                <div>Points</div>
+                <div style="text-align: right;">Action</div>
+            </div>
+            <div id="rowsContainer">
+                </div>
+        </div>
+    </div>
+
+    <div id="status"></div>
+
+    <script>
+        // CONFIGURATION
+        const BOT_TOKEN = "8358850689:AAFtZtp_P_7fkXoZ5C078PzNPEw8N4kZJ14";
+        
+        let sortedDataCache = [];
+
+        // 1. Core Logic: Process and Sort
+        function processData() {
+            const rawInput = document.getElementById('inputData').value;
+            const lines = rawInput.split(/\r?\n/);
+            const processed = [];
+
+            // Fast Regex Parsing
+            // Captures: 1=Email:Pass, 2=Points
+            const regex = /^(.*?)\s*\|\s*Points\s*=\s*(\d+)/;
+
+            for (let line of lines) {
+                if (!line.trim()) continue;
+                
+                const match = line.match(regex);
+                if (match) {
+                    processed.push({
+                        creds: match[1].trim(),
+                        points: parseInt(match[2], 10),
+                        original: line
+                    });
+                }
+            }
+
+            // Sort Descending (Highest points first)
+            processed.sort((a, b) => b.points - a.points);
+            
+            sortedDataCache = processed;
+            renderTable(processed);
+            
+            // Enable Telegram Button if data exists
+            document.getElementById('btnSendTg').disabled = processed.length === 0;
+            showStatus(`Sorted ${processed.length} accounts!`);
+        }
+
+        // 2. Rendering: Blazing Fast DOM Manipulation
+        function renderTable(data) {
+            const container = document.getElementById('rowsContainer');
+            container.innerHTML = ''; // Clear previous
+
+            if (data.length === 0) return;
+
+            document.getElementById('resultsArea').style.display = 'block';
+
+            // Use DocumentFragment for performance
+            const fragment = document.createDocumentFragment();
+
+            data.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'row-item';
+                div.innerHTML = `
+                    <div class="col-creds">${item.creds}</div>
+                    <div class="col-points">${item.points.toLocaleString()}</div>
+                    <div class="col-action">
+                        <button class="icon-btn" onclick="copyToClipboard('${item.creds}')" title="Copy Credentials">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                `;
+                fragment.appendChild(div);
+            });
+
+            container.appendChild(fragment);
+        }
+
+        // 3. Action: Copy Functionality
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showStatus("Copied to clipboard!");
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        // 4. Telegram Integration
+        async function sendToTelegram() {
+            const chatId = document.getElementById('chatId').value;
+            if (!chatId) {
+                alert("Please enter a Telegram Chat ID.");
+                return;
+            }
+
+            if (sortedDataCache.length === 0) return;
+
+            const btn = document.getElementById('btnSendTg');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
+
+            let successCount = 0;
+            
+            // Telegram Rate Limit Prevention: Send in small batches or with delay
+            // We will loop and send. Note: Sending 1000s of requests might get temporary IP ban from TG.
+            
+            for (const item of sortedDataCache) {
+                // Construct message based on user request:
+                // point-
+                // Mail:pass (in code block for easy copy)
+                const message = `<b>${item.points}-</b>\n<code>${item.creds}</code>`;
+                
+                try {
+                    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+                    await fetch(url, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            chat_id: chatId,
+                            text: message,
+                            parse_mode: 'HTML'
+                        })
+                    });
+                    successCount++;
+                } catch (error) {
+                    console.error("TG Error:", error);
+                }
+                
+                // Add a tiny delay to be nice to the API (50ms)
+                await new Promise(r => setTimeout(r, 50));
+            }
+
+            btn.innerHTML = '<i class="fab fa-telegram-plane"></i> Send to Bot';
+            btn.disabled = false;
+            showStatus(`Sent ${successCount} accounts to Telegram!`);
+        }
+
+        // Helper: Toast Notification
+        function showStatus(msg) {
+            const el = document.getElementById('status');
+            el.innerText = msg;
+            el.style.display = 'block';
+            setTimeout(() => {
+                el.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
